@@ -32,5 +32,10 @@ def parse(xmlfile):
         if desc  != None: 
             print desc
 
+
+def writeback():
+    #TODO: generate the configuration file based on the error
+    print 'hello'
+
 if __name__ == "__main__":
     parse('./yarn-default.xml')
