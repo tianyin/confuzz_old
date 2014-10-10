@@ -1,5 +1,15 @@
 import subprocess
 
+"""
+1. start the server
+2. check whether start successfully
+3. run test cases
+4. check whether test cases all finish or past
+5. check the server after each test case
+6. stop the server
+7. if stop failes, run the kill function
+"""
+
 def exec_scripts(app, startscripts, args=[]):
     cmd = [startscripts] + args
     subprocess.call(cmd)
@@ -43,19 +53,6 @@ def exist(appid):
             continue
     return False
 
-def test(appid,
-         startscripts, startargs,
-         stopscripts, stopargs):
-    print ("test")
-    """
-    1. start the server
-    2. check whether start successfully
-    3. run test cases
-    4. check whether test cases all finish or past
-    5. check the server after each test case
-    6. stop the server
-    7. if stop failes, run the kill function
-    """
 
 #exec_scripts('squid', 'ps', ['aux'])
 #print exist('squid')
