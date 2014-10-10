@@ -1,6 +1,6 @@
 
 
-def confErrGen(p, v, ty):
+def conf_err_gen(p, v, ty):
     """
     p:  parameter
     v:  value
