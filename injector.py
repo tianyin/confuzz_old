@@ -56,6 +56,3 @@ def test():
     cstore.change_value('shit', 'b', 'ass')
     cstore.inject('b')
     cstore.print_confstore()
-
-
-test()

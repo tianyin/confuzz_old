@@ -1,13 +1,17 @@
 import subprocess
 
 """
+---------------------------------------------------
+The Standard Testing Process Should Be As Follows
+---------------------------------------------------
 1. start the server
 2. check whether start successfully
-3. run test cases
-4. check whether test cases all finish or past
+3. run each test case one by one
+4. check whether test cases all finish or fail
 5. check the server after each test case
 6. stop the server
 7. if stop failes, run the kill function
+----------------------------------------------------
 """
 
 def exec_scripts(app, startscripts, args=[]):
