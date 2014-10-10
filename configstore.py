@@ -1,12 +1,4 @@
-def conf_err_gen(p, v, ty):
-    """
-    p:  parameter
-    v:  value
-    ty: type of the parameter
-    """
-    #we first do the simplest one
-    return v + 'hello'
-
+import errgen
 
 class ConfStore:
     def __init__(self):
@@ -37,7 +29,7 @@ class ConfStore:
             pvstore = self.confstore[sec]
             for idx, pv in enumerate(pvstore):
                 if pv[0] == p:
-                    pvstore[idx] = (p, conf_err_gen(p, pv[1], ''))
+                    pvstore[idx] = (p, errgen.conf_err_gen(p, pv[1], ''))
 
     def print_confstore(self):
         for sec in self.confstore:
