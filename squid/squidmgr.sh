@@ -17,4 +17,3 @@ else
     echo "Wrong option!"
 fi
 
-

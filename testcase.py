@@ -12,10 +12,12 @@ class TestCase:
         self.res   = re
 
     def oracle(self):
+        print '[error] This is a virtual method (oracle) and is supposed not to be called'
         return False
 
     def runtest(self):
-        return False
+        print '[error] This is a virtual method (runtest) and is supposed not to be called'
+        pass
 
     def bundle_res(self, dest):
         """
@@ -43,9 +45,9 @@ class TestCase:
         elif os.path.isfile(self.res):
             os.remove(self.res)
 
-    def tostring():
-        print app, prog, re
+    def tostr(self):
+        print self.appid, self.tprog, self.res
     
-test_bundle():
-    tc = TestCase('squid', None, '/home/tianyin/conquid/app/squid-3.4.8/build/var/logs/')
-    tc.bundle_res('./'); 
+#test_bundle():
+#    tc = TestCase('squid', None, '/home/tianyin/conquid/app/squid-3.4.8/build/var/logs/')
+#    tc.bundle_res('./'); 

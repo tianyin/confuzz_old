@@ -1,6 +1,6 @@
 import subprocess
 
-class srvBundle():
+class ServerBundle():
     def __init__(self, app, 
             strtsrpt, strtargs, stpsrpt, stpargs, logs, cfile):
         self.app = app
@@ -15,8 +15,8 @@ class srvBundle():
     #    cmd = [startsrpt] + self.startargs
     #    subprocess.call(cmd)
 
-    def start_srv(self, cfile):
-        cmd = [self.startsrpt] + self.startargs + [cfile]
+    def start_srv(self):
+        cmd = [self.startsrpt] + self.startargs
         subprocess.call(cmd)
     
     def stop_srv(self):
@@ -38,7 +38,7 @@ class srvBundle():
         return procs
 
     def kill(self):
-        pdesc = get_proc_desc(self.app)
+        pdesc = self.get_proc_desc()
         for p in pdesc:
             p = p.strip().split()
             pid = p[1]
@@ -49,10 +49,10 @@ class srvBundle():
         
 
     def exist(self):
-        pdesc = get_proc_desc(self.app)
+        pdesc = self.get_proc_desc()
         for p in pdesc:
             p = p.strip().split()
-            print p
+            #print p
             if p[10] != 'grep':
                 return True
             else:
@@ -65,7 +65,8 @@ class srvBundle():
             os.renames(self.logdir, nlogdir)
 
     def clean_state(self):
-        print 'clean state'
+        #TODO
+        print 'clean state:'
 
     def self_test(self):
         print 'need to implement'
@@ -88,8 +89,10 @@ class srvBundle():
         self.start_srv()
         #utils.exec_scripts('bash', ['./squidmgr.sh', 'start'])
         if self.exist() == False:
-            print 'Server dies at the startup time'
+            print '[info] Server dies at the startup time'
             return False
+        else:
+            print '[info] Server starts successfully'
    
         #Test
         for tc in testcases:
@@ -106,7 +109,7 @@ class srvBundle():
 
             #Check server aliveness
             if self.exist() == False:
-                print 'Server dies at tc', tc.tostring() 
+                print 'Server dies at tc:', tc.tostr() 
                 return False
     
         #Clean the state
