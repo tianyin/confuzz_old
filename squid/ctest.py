@@ -3,45 +3,31 @@ sys.path.append('..')
 import utils
 import injector
 
-APPID = 'squid'
+#TODO
+APP = 'squid'
+STARTSRPT = 
+STARTARGS =
+STOPSRPT  = 
+STOPSRPT  =
+LOGDIR    = 
+CONFFILE  = 
 
-#TODO: more urls and repeated
-urllist = ['http://www.google.com', 'http://www.sina.com']
+#Generate a bunch of errorneous configuration files for testing
+configfiles = []
 
-def fetchTC(url):
-    utils.exec_scripts(APPID, 'bash', ['./fetch.sh'] + [url])
-    fl = open('./fetch.res').readline().strip()
-    if 'HTTP/1.1 200 OK' not in fl:
-        return False
+for cfile in configfiles:
+    cfile.store(CONFFILE)
+    server = squidServerBundle(APP, STARTSRPT, STARTARGS, STOPSRPT, STOPARGS, LOGDIR, CONFFILE)
+    #make sure the start and stop works
+    server.self_test()
+    
+    testcases = generateFetchTestCases()
+    
+    if server.ctest(testcases) == True:
+        print 'yes, we find the hidden ones'
     else:
-        return True
+        print 'ooops, squid is good!'
 
-def ctest():
-    """
-    Test a single configuration file
-    """
-    #Start the server
-    utils.exec_scripts(APPID, 'bash', ['./squidmgr.sh', 'start'])
-    if utils.exist(APPID) == False:
-        print 'Server dies at the startup time'
-        return
-   
-    #Test
-    for url in urllist:
-        #Oracle
-        if fetchTC(url) == False:
-            print 'Fail at fetching url', url
-            return
-        #TODO: remove the res files
-        #Check server aliveness
-        if utils.exist(APPID) == False:
-            print 'Server dies at url', url 
-            return
-
-    #Stop
-    utils.exec_scripts(APPID, 'bash', ['./squidmgr.sh', 'stop'])
-    if utils.exist(APPID) == True:
-        utils.kill(APPID)
 
 if __name__ == '__main__':
     ctest()

@@ -1,13 +1,15 @@
 import os
 from datetime import datetime
+import shutil
 
 class TestCase:
-    def __init__(self, aid, tcp, acclog, errlog, res):
-        self.appid     = aid
-        self.testprog  = tcp
-        self.accesslog = acclog
-        self.errorlog  = errlog
-        self.respath   = res
+    """
+    Any subclass must implemenet runtest() and oracle()
+    """
+    def __init__(self, app, prog, re):
+        self.appid = app
+        self.tprog = prog
+        self.res   = re
 
     def oracle(self):
         return False
@@ -22,17 +24,28 @@ class TestCase:
         time = datetime.now().strftime('_%Y-%m-%d_%H-%M-%S') 
         newdir = dest + '/' + self.appid + time + '/'
         os.mkdir(newdir)
-        if self.accesslog != None: 
-            os.rename(self.accesslog, newdir + os.path.basename(self.accesslog))
-        if self.errorlog != None:
-            os.rename(self.errorlog,  newdir + os.path.basename(self.errorlog))
-        if self.respath != None:
-            if os.path.isdir(self.respath) == True:
-                os.renames(self.respath, newdir + os.path.basename(self.respath))
+        #if self.accesslog != None: 
+        #    os.rename(self.accesslog, newdir + os.path.basename(self.accesslog))
+        #if self.errorlog != None:
+        #    os.rename(self.errorlog,  newdir + os.path.basename(self.errorlog))
+        if self.res != None:
+            if os.path.isdir(self.res) == True:
+                os.renames(self.res, newdir + os.path.basename(self.res))
             else:
-                os.rename(self.respath, newdir + os.path.basename(self.respath))
+                os.rename(self.res, newdir + os.path.basename(self.res))
+    
+    def print_testcase(self):
+        print self.appid, self.tprog, self.res
+    
+    def clean_state(self):
+        if os.path.isdir(self.res):
+            shutil.rmtree(self.res)
+        elif os.path.isfile(self.res):
+            os.remove(self.res)
 
-
-class testi_bundle():
-    tc = TestCase('squid', 'xxx', None, None, '/home/tianyin/conquid/app/squid-3.4.8/build/var/logs/')
+    def tostring():
+        print app, prog, re
+    
+test_bundle():
+    tc = TestCase('squid', None, '/home/tianyin/conquid/app/squid-3.4.8/build/var/logs/')
     tc.bundle_res('./'); 
