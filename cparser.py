@@ -1,4 +1,4 @@
-from configstore import ConfStore
+from confstore import ConfStore
 
 class Parser:
     """
@@ -8,12 +8,12 @@ class Parser:
         print "[error] The parse() in the Parser class should never be called!"
         return None
 
-    def write2file(self, confstore):
+    def write2file(self, confstore, destf):
         print "[error] The tofile() in the Parser class should never be called!"
         pass
 
 
-class SimpleKVParser:
+class SimpleKVParser(Parser):
     """
     Parser for key-value formatted files
     Should be able to work with Squid, PostgreSQL, VSFTPD, etc
@@ -48,7 +48,7 @@ class SimpleKVParser:
         f.close()
 
 
-class HadoopParser:
+class HadoopParser(Parser):
     """
     Parser for Hadoop systems such as MR, Yarn, HDFS, ZK, etc
     """
@@ -78,14 +78,6 @@ class HadoopParser:
             confstore.add('', name, value)
         return confstore
 
-    def write2file(self, confstore):
-        #TODO
-        pass
+    def write2file(self, confstore, destf):
+        return None
 
-
-#testing
-skvp = SimpleKVParser()
-cstore = skvp.parse('/home/tianyin/conquid/app/squid-3.4.8/build/etc/squid.conf')
-cstore.inject('http_port')
-cstore.print_confstore()
-skvp.write2file(cstore, '/home/tianyin/conquid/app/squid-3.4.8/build/etc/squid.conf.gen')

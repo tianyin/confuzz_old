@@ -42,12 +42,10 @@ class TestCase:
     def clean_state(self):
         if os.path.isdir(self.res):
             shutil.rmtree(self.res)
+            os.mkdir(self.res)
         elif os.path.isfile(self.res):
             os.remove(self.res)
 
     def tostr(self):
         print self.appid, self.tprog, self.res
     
-#test_bundle():
-#    tc = TestCase('squid', None, '/home/tianyin/conquid/app/squid-3.4.8/build/var/logs/')
-#    tc.bundle_res('./'); 
