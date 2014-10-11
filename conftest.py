@@ -49,7 +49,7 @@ class ConfTest:
         #utils.exec_scripts('bash', ['./squidmgr.sh', 'start'])
         if self.srv.exist() == False:
             print '[info] Server dies at the startup time'
-            return False
+            return 'server fail at startup'
         else:
             print '[info] Server starts successfully'
    
@@ -62,7 +62,7 @@ class ConfTest:
                 tc.print_testcase()
                 #tc.bundle_res()
                 print 'Fail to pass the test case:', tc.tostr()
-                return False
+                return 'tc fail at tc '+ str(tc.tostr())
         
             #remove the res files
             tc.clean_state()
@@ -70,7 +70,7 @@ class ConfTest:
             #Check server aliveness
             if self.srv.exist() == False:
                 print 'Server dies after test case:', tc.tostr() 
-                return False
+                return 'server fail at tc '+str(tc.tostr())
     
         #Clean the state
         self.srv.clean_state()
@@ -78,19 +78,25 @@ class ConfTest:
         self.srv.stop_srv()
         if self.srv.exist() == True:
             self.srv.kill()
-        return True
+        return 'pass'
 
     def selftest(self):
         """
         We have to first pass self testing which makes sure that the default configuration is correct
         """
         shutil.copyfile(self.conforg, self.confloc)    
-        return self.ctest();
+        if self.ctest() == 'pass':
+            return True
+        else:
+            return False 
 
     def injtest(self):
         """
         Inject errors into different parameters and then test
         """
+        passp = open('./pass.res', 'w')
+        failp = open('./fail.res', 'w')
+
         cstore = self.parser.parse(self.conforg)
         cstore.addparameters(self.pset)
         
@@ -101,13 +107,18 @@ class ConfTest:
         errpairs = errgen.err_conffile_gen(self.parser, cstore, tmpcfdir)
         for ep, ef in errpairs:
             shutil.copyfile(ef, self.confloc)
-            if self.ctest() == True:
+            r = self.ctest()
+            if r == 'pass':
                 print 'pass the tests'
                 print 'erroneous parameter:', ep
                 print '-----------------------------'
+                passp.write(ep + '\n')
             else:
                 print 'fail the tests'
-    
+                failp.write(ep + ": " + r + '\n')
+        passp.close()
+        failp.close()
+
     def runtest(self, runselftest):
         if runselftest == True:
             print '[info] start self testing...'
