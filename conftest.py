@@ -108,14 +108,14 @@ class ConfTest:
             else:
                 print 'fail the tests'
     
-    def runtest(self):
-        """
-        print '[info] start self testing...'
-        for i in range(0, 5):
-            if self.selftest() == False:
-                print '[error] self-test fails'
-                return
-        print '[info] pass self testing...'
-        """
+    def runtest(self, runselftest):
+        if runselftest == True:
+            print '[info] start self testing...'
+            for i in range(0, 5):
+                if self.selftest() == False:
+                    print '[error] self-test fails'
+                    return
+            print '[info] pass self testing...'
+        #The real inj test
         print '[info] start inj testing...'
         self.injtest()

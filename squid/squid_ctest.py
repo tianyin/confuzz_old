@@ -25,4 +25,4 @@ kvparser = SimpleKVParser()
 testcases = squid_testcases.generateFetchTestCases()
 conftest = ConfTest(APP, server, testcases, kvparser, CONFFILE_LOC, CORRECT_CONFFILE, PARAMETER_SET)
 
-conftest.runtest()
+conftest.runtest(False)
