@@ -15,7 +15,7 @@ STOPSRPT  = 'bash'
 STOPARGS  = ['./squidmgr.sh', 'stop']
 LOGDIR    = '/home/tianyin/conquid/app/squid-3.4.8/build/var/logs/'
 CONFFILE_LOC = '/home/tianyin/conquid/app/squid-3.4.8/build/etc/squid.conf'
-PARAMETER_SET = './pset'
+PARAMETER_SET = './parameter.lst'
 
 #This can be used for self-testing
 CORRECT_CONFFILE = '/home/tianyin/conquid/app/squid-3.4.8/build/etc/squid.conf.org'
