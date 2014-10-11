@@ -20,6 +20,7 @@ class SimpleKVParser:
     """
     def __init__(self, d=' ', c = '#', b='\\'):
         self.delim = d
+        self.comment = c
         self.linebrk = b
 
     def parse(self, conffile):
@@ -27,7 +28,7 @@ class SimpleKVParser:
         #TODO support line breakers
         f = open(conffile, 'r')
         for l in f:
-            l = l[:l.find('#')].strip()
+            l = l[:l.find(self.comment)].strip()
             if len(l) == 0:
                 continue
             brk = l.find(self.delim)
