@@ -8,7 +8,7 @@ class Parser:
         print "[error] The parse() in the Parser class should never be called!"
         return None
 
-    def tofile(self, confstore):
+    def write2file(self, confstore):
         print "[error] The tofile() in the Parser class should never be called!"
         pass
 
@@ -77,7 +77,7 @@ class HadoopParser:
             confstore.add('', name, value)
         return confstore
 
-    def tofile(self, confstore):
+    def write2file(self, confstore):
         #TODO
         pass
 
