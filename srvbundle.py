@@ -56,7 +56,9 @@ class ServerBundle():
         pdesc = self.get_proc_desc()
         for p in pdesc:
             p = p.strip().split()
-            #print p
+            if len(p) <= 10:
+                print '[error] the state string is less than 10', p
+                return True
             if p[10] != 'grep':
                 return True
             else:
