@@ -3,6 +3,9 @@ import errgen
 class ConfStore:
     def __init__(self):
         self.confstore = {}
+    
+    def construct(self, cfpath, default):
+        print 'generate the ConfStore'
 
     def add(self, sec, p, v):
         if sec not in self.confstore:
@@ -25,6 +28,9 @@ class ConfStore:
         return self.confstore
 
     def inject(self, p):
+        """
+        This is used for error injection testing
+        """
         for sec in self.confstore:
             pvstore = self.confstore[sec]
             for idx, pv in enumerate(pvstore):

@@ -16,23 +16,34 @@ CORRECT_CONFFILE = '/home/tianyin/conquid/app/squid-3.4.8/build/etc/squid.conf.o
 
 
 #Generate a bunch of errorneous configuration files for testing
-configfiles = [CORRECT_CONFFILE]
 
 #for cfile in configfiles:
 #    cfile.store(CONFFILE)
-def ctest():
+
+def selftest():
+    conffiles = [CORRECT_CONFFILE]
+    if ctest(conffiles) == False:
+        print '[error] self test fails'
+        return False
+    else:
+        return True
+
+def ctest(conffiles):
+    """
+    return
+    True: passed the testcases
+    False: faile to pass
+    """
     server = ServerBundle(APP, STARTSRPT, STARTARGS, STOPSRPT, STOPARGS, LOGDIR, CONFFILE)
     #make sure the start and stop works
     #server.self_test()
-    
     testcases = squid_testcases.generateFetchTestCases()
-    
-    if server.ctest(testcases) == True:
-        print 'yes, we find the hidden ones'
-    else:
-        print 'ooops, tests fail to pass'
+    return server.ctest(testcases)
 
 
 if __name__ == '__main__':
-    ctest()
+    if selftest() == True:
+        print 'Pass self testing'
+    else:
+        print 'Fail to pass self testing'
 
