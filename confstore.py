@@ -55,5 +55,5 @@ class ConfStore:
             l = l.strip()
             if l not in pset:
                 #TODO: define the format of kvpath
-                add('', l, 'default')
+                self.add('', l, None)
                  

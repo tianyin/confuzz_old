@@ -9,6 +9,9 @@ class Parser:
         return None
 
     def write2file(self, confstore, destf):
+        """
+        [Note] if a value of a parameter in ConfStore is None (which means it uses the default), we do not write back
+        """
         print "[error] The tofile() in the Parser class should never be called!"
         pass
 
@@ -43,8 +46,9 @@ class SimpleKVParser(Parser):
         for sec in cstore:
             kvstore = cstore[sec]
             for k, v in kvstore:
-                cl = k + self.delim + v + '\n'
-                f.write(cl)
+                if v != None:
+                    cl = k + self.delim + v + '\n'
+                    f.write(cl)
         f.close()
 
 
