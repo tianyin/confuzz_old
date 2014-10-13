@@ -38,6 +38,13 @@ class ConfStore:
                 pset.add(p)
         return pset 
 
+    def exists(self, p):
+        pset = self.get_pset()
+        if p in pset:
+            return True
+        else:
+            return False
+
     def get_confstore(self):
         return self.confstore
 

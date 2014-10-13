@@ -90,6 +90,22 @@ class ConfTest:
         else:
             return False 
 
+    def testp(self, p, v):
+        """
+        Given a parameter and its setting, i.e., (p, v), do the ctest
+        """
+        cstore = self.parser.parse(self.conforg)
+        if cstore.exists(p) == True:
+            errfile = cstore.change_all_p(p, v)
+        else:
+            cstore.add('', p, v)
+        self.parser.write2file(cstore, self.confloc)
+        r = self.ctest()
+        if r == 'pass':
+            print 'Pass the tests'
+        else:
+            print 'Fail the tests (', r, ')'
+
     def injtest(self):
         """
         Inject errors into different parameters and then test
