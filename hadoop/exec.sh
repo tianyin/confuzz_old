@@ -1,5 +1,6 @@
+#Source: http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html
 #TODO: first check whether there's a hadoop program running
-
+#TODO: decouple the start scripts, stop scripts, and test-case scripts
 
 rm -Rf /tmp/hadoop-tianyin*
 rm -Rf /tmp/yarn-tianyin*
