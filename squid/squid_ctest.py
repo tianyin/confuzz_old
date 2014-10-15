@@ -26,4 +26,4 @@ testcases = squid_testcases.generateFetchTestCases()
 conftest = ConfTest(APP, server, testcases, kvparser, CONFFILE_LOC, CORRECT_CONFFILE, PARAMETER_SET)
 
 #conftest.runtest(False)
-conftest.testp('accept_filter', 'shit')
+conftest.testp('diskd_program', 'shit')

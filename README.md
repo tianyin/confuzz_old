@@ -1,3 +1,3 @@
-Conject
+Confuzz
 =======
-A Framework for Configuration Testing
+Confuzz is more than fuzzing! 
